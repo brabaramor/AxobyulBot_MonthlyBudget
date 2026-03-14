@@ -8,17 +8,17 @@ load_dotenv()
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 def main():
-    app = ApplicationBuilder.token(TOKEN).build()
+    app = ApplicationBuilder().token(TOKEN).build()
     session = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
             MENU: [MessageHandler(filters.TEXT & ~filters.COMMAND, receive_option)],
-            WAITING_DATA: [MessageHandler(filters.TEXT & -filters.COMMAND, receive_option)]
+            WAITING_DATA: [MessageHandler(filters.TEXT & ~filters.COMMAND, receive_data)]
         },
         fallbacks=[CommandHandler("start",start)],
     )
     app.add_handler(session)
-    print("Bot rodando...")
+    print("Bot rodando...ᓬ(•ᴗ•)ᕒ")
     app.run_polling()
 
 if __name__ == "__main__":

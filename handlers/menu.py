@@ -1,3 +1,10 @@
+from telegram import Update
+from telegram.ext import ContextTypes, ConversationHandler
+ 
+# Estados da conversa
+MENU = 1
+WAITING_DATA = 2
+
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "Oie, eu sou o Axobyul ᓬ(•ᴗ•)ᕒ, o que você quer fazer?\n\n"
@@ -7,7 +14,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return MENU
 
 async def receive_option(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    optin = update.message.text.strip()
+    option = update.message.text.strip()
 
     if option == "1":
         await update.message.reply_text("Ainda tô aprendendo a fazer isso ᓬ(••')ᕒ")
@@ -17,7 +24,7 @@ async def receive_option(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Digite os dados nesta ordem, separados por vírgula:\n\n"
             "O que, Valor total, Valor da parcela, Quantidade de parcelas, Categoria, Subcategoria, dd/mm/aa\n\n"
             "Exemplo ᓬ(•ᴗ•)ᕒ:\n"
-            "Amazon Tonico facial etc, 300, 100, 3, Parceladas, Skincare, 10/03/26"
+            "Amazon Tonico facial etc, 300, 100, 3, Skincare/Haircare, Parceladas, 10/03/26"
         )
         return WAITING_DATA
     else:
